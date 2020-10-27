@@ -1,14 +1,12 @@
 const soundtrack = []; //tablica przechowuje nagrywane ścieżki soundtrack1 w [0] itd
 const recordFlag = []; //info czy nagrywanie jest włączone?
-const stopFlag = [];
+const stopFlag = []; //jeżeli flaga===true to zostaje wyłączone odtwarzanie oraz nagrywanie
 const recordStartTime = []; //czas wciśnięcia startu nagrywania
 const keyboardKeys = ['KeyQ','KeyW','KeyE','KeyR','KeyT','KeyY','KeyU','KeyI','KeyO','KeyP']; //domyślne klawisze obsługujące dźwięki
 const sounds = [...(document.querySelectorAll('audio'))];
 const trackDiv = document.querySelector('.soundtrack'); //div do którego przyczepiam nowe ścieżki
-const userDisplayArea = document.querySelector('.userDisplayArea');
 
-//ustawienia domyślne klawiszy grających:
-const setParameters = ()=>{
+const setParameters = ()=>{ //ustawienia domyślne klawiszy grających:
     for (let i=0;i<sounds.length;i++){
         sounds[i] = {
             name: sounds[i].id,
@@ -17,7 +15,6 @@ const setParameters = ()=>{
         };
     }
 };
-
 setParameters();
 
 const drawSoundPanel = ()=>{
@@ -31,7 +28,6 @@ const drawSoundPanel = ()=>{
         drumsDiv.appendChild(lineConstruct(index));
     });
 };
-
 drawSoundPanel();
 
 const playSound = ({soundObject}) => {
@@ -62,8 +58,6 @@ const setDrum = keyboardAction => {
     }
 };
 
-//const setStartRecordTime = (soundtrackIndex) => recordStartTime[soundtrackIndex] = Date.now();
-
 const recordDrum = (keyboardAction, soundtrackIndex)=>{
     let sound = setDrum(keyboardAction);
     if (sound.soundObject) {
@@ -82,9 +76,6 @@ const startRecordDrum = (keyboardAction,soundtrackIndex)=> {
         recordFlag[soundtrackIndex] = true;
         recordStartTime[soundtrackIndex] = Date.now();
     }
-    // if (recordFlag[soundtrackIndex]){
-    //     recordDrum(keyboardAction, soundtrackIndex);
-    // }
 };
 
 const stopDrum = (soundtrackIndex)=> {
@@ -93,7 +84,17 @@ const stopDrum = (soundtrackIndex)=> {
 };
 
 const playRecordedDrum = (soundtrackIndex)=> {
-    stopFlag[soundtrackIndex]=false;    
+    stopFlag[soundtrackIndex]=false;
+    // let soundIndex = 0;
+    // while (!stopFlag[soundtrackIndex]&&soundIndex<soundtrack[soundtrackIndex].length){
+    //     setTimeout(()=>{
+    //         playSound(soundtrack[soundtrackIndex][soundIndex]);
+    //     },
+    //     soundtrack[soundtrackIndex][soundIndex].durationTime);
+    //     soundIndex++;
+    //     console.log('1');        
+    // }    
+    
     for (let sound=0;sound<soundtrack[soundtrackIndex].length;sound++){
         if (!stopFlag[soundtrackIndex]) {
             setTimeout(()=>{
@@ -117,7 +118,6 @@ const stopAllDrums = ()=> {
 };
 
 const addSoundtrack = (soundtrackIndex)=> {
-
     if (soundtrackIndex<4){ //metoda tworząca przycisk wraz z nasłuchiwaniem:
         const createBtn = (buttonName)=>{
             const button = document.createElement('button');
@@ -136,7 +136,7 @@ const addSoundtrack = (soundtrackIndex)=> {
                 case 'reset': console.log('reset');
                     break;
                 }
-            }); //funkcje listnera zrobić na switchu
+            });
         };
         //zmiany w HTML:
         const divTrackNo = document.createElement('div'); // nowa, generowana ścieżka muzyczna
@@ -156,7 +156,6 @@ const addSoundtrack = (soundtrackIndex)=> {
         alert('Max number of tracks is 4!');
     }    
 };
-
 addSoundtrack(0);
 
 const startDrum = (e)=>{
@@ -171,4 +170,3 @@ window.addEventListener('keydown', startDrum);
 document.body.querySelector('#addSoundtrack').addEventListener('click', ()=>addSoundtrack(soundtrack.length));
 document.body.querySelector('#playAll').addEventListener('click',playAllRecordedDrums);
 document.body.querySelector('#stopAll').addEventListener('click',stopAllDrums);
-// document.body.querySelector('#resetSoundtrack').addEventListener('click', ()=>trackDiv.textContent='');
