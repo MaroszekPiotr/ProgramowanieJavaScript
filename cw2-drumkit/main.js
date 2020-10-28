@@ -90,7 +90,7 @@ const stopDrum = (soundtrackIndex)=> {
 const playRecordedDrum = (soundtrackIndex)=> {
     recordFlag[soundtrackIndex]=false;
     stopFlag[soundtrackIndex]=false;
-    actionState[soundtrackIndex].textContent='PLAYING';
+    if (soundtrack[soundtrackIndex].length>0) actionState[soundtrackIndex].textContent='PLAYING';
     for (let sound=0;sound<soundtrack[soundtrackIndex].length;sound++){
         setTimeout(()=>{
             if (!stopFlag[soundtrackIndex]){
@@ -112,8 +112,8 @@ const playAllRecordedDrums = ()=>{
     });
 };
 
-const addSoundtrack = (soundtrackIndex)=> {
-    if (soundtrackIndex<4){ //metoda tworząca przycisk wraz z nasłuchiwaniem:
+const addSoundtrack = (soundtrackIndex)=> { //metoda tworząca przycisk wraz z nasłuchiwaniem:
+    if (soundtrackIndex<4){ 
         const createBtn = (buttonName)=>{
             const button = document.createElement('button');
             button.id = `${buttonName}${soundtrackIndex}`;
