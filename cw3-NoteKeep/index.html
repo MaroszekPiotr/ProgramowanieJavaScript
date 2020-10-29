@@ -4,14 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>NoteKeep++</title>
+    <title>noteKeep++</title>
   </head>
   <body>
     <div class="container">
-      <div class="upMenu"></div>
+      <div class="upMenu">
+        <p>noteKeep++</p>
+        <form action="">
+          <label for="">Znajdź notatkę:</label>
+          <input type="text" />
+          <button id="searchBtn">szukaj</button>
+        </form>
+      </div>
       <div class="userNotes"></div>
-      <div class="note"></div>
-      <div class="downMenu"></div>
+      <div class="reminder"></div>
+      <div class="note active">
+        <div class="title">
+          <form action="">
+            <input type="text" value="Wprowadź tytuł..." />
+          </form>
+        </div>
+        <div class="message">
+          <textarea name="" id="messageBox"></textarea>
+          <!-- <form action="">
+            <input type="text" value="Napisz wiadomość..." />
+          </form> -->
+        </div>
+        <div class="menuNote">
+          <form action="" class="formTag">
+            <input type="text" value="wpisz tag, możesz dodać ich wiele" />
+            <button>dodaj</button>
+          </form>
+          <form action="">
+            <input type="date" id="reminderDate" />
+            <input type="time" id="reminderTime" />
+            <label for="reminderDate">przypomnienie</label>
+          </form>
+          <form action="">
+            <input type="checkbox" id="pinnedNote" />
+            <label for="pinnedNote">pinezka</label>
+            <!-- tagi, przypomnienie -->
+          </form>
+          <button class="cancelNoteBtn">anuluj</button>
+          <button class="addNoteBtn">dodaj</button>
+        </div>
+      </div>
+      <div class="downMenu">
+        <button id="addBtn">dodaj</button>
+      </div>
     </div>
     <script src="main.js"></script>
   </body>
