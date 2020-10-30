@@ -84,12 +84,12 @@ body {
     bottom: 0;
     background-color: var(--colorNewNote);
     color: var(--colorFont1);
-    transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    /* transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); */
 }
 
 .note.active {
     margin-left: 0;
-    transition: 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    /* transition: 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955); */
 }
 
 .note>.title{
@@ -121,8 +121,6 @@ body {
     flex-grow: 1;
     padding: 2vw;
     font-size: 2em;
-    /* height: 100%;
-    width: 100%; */
 }
 .note>.menuNote{
     display: flex;
@@ -133,7 +131,7 @@ body {
     border-top: 0.3vh solid var(--color3);
 }
 
-.note>.menuNote button, .note>.menuNote form  {
+.note>.menuNote button, .note>.menuNote form, #addBtn  {
     display: flex;
     border-bottom: 0.3vh solid var(--color3); 
     border-left: 0.6vh solid var(--color3);
@@ -146,12 +144,12 @@ body {
     cursor: pointer;
     transition: 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
-.note>.menuNote button:hover {
+.note>.menuNote button:hover, #addBtn:hover {
     background-color: var(--colorFont1);
     color: var(--colorBackGround);
     transition: 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
 }
-.note>.menuNote button {
+.note>.menuNote button, #addBtn {
     padding: 0 3vw;
     color: var(--colorFont1);
 }
