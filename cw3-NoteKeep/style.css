@@ -25,7 +25,9 @@ body {
     display: flex;
     overflow: hidden;
     width: 100%;
+    height: 100vh;
     flex-wrap: wrap;
+    background-color: saddlebrown;
 }
 
 .upMenu {
@@ -65,11 +67,29 @@ body {
 }
 
 .userNotes {
+    padding: 2vw;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     height: 90vh;
     flex-grow: 1;
     background-color: var(--colorBackGround);    
+}
+
+.userNotes>div {
+    margin: 1vw;
+    padding: 1vw;
+    width: 6vw;
+    height: 6vw;
+    text-align: center;
+    flex-shrink: 1;
+    border-radius: 10%;
+}
+
+.userNotes>div:hover {
+    cursor: pointer;
+    background-color: var(--color4) !important;
+    color: var(--colorNewNote) !important; 
 }
 
 .note {
@@ -121,6 +141,21 @@ body {
     flex-grow: 1;
     padding: 2vw;
     font-size: 2em;
+}
+.note>.message>.setNoteColor {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    flex-grow: 0.05;
+}
+.note>.message>.setNoteColor>div {
+    width: 2vw;
+    height: 2vw;
+    border-radius: 100%;
+    cursor: pointer;
+    /* justify-content: space-between; */
 }
 .note>.menuNote{
     display: flex;
