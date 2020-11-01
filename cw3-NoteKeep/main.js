@@ -1,54 +1,10 @@
 const notes = [];
+const lsKey = 'notes';
 const noteList = document.querySelector('.note');
 const addBtn = document.querySelector('#addBtn');
 const noteColorSets = [{backgroundColor: '#272121', fontColor: '#f9d276'},{backgroundColor: '#cf7500', fontColor: '#f4f4f4'},{backgroundColor: '#07689f', fontColor: '#ffc93c'},{backgroundColor: '#2d4059', fontColor: '#ea5455'},{backgroundColor: '#fddb3a', fontColor: '#52575d'},{backgroundColor: '#fadcac', fontColor: '#158467'},{backgroundColor: '#206a5d', fontColor: '#81b214'}];
 let noteColor;
 let noteTags;
-
-notes.push({
-    id: (notes.length+1),
-    title: 'testowa notka',
-    message: 'lorem tararam',
-    color: 0,
-    pinned: false,
-    startDate: new Date(),
-    tags: noteTags,
-    reminderDate: null,
-    reminderTime: null,
-});
-notes.push({
-    id: (notes.length+1),
-    title: 'testowa notka2',
-    message: 'lorem tararam',
-    color: 1,
-    pinned: false,
-    startDate: new Date(),
-    tags: noteTags,
-    reminderDate: null,
-    reminderTime: null,
-});
-notes.push({
-    id: (notes.length+1),
-    title: 'testowa notka3',
-    message: 'lorem tararam',
-    color: 2,
-    pinned: true,
-    startDate: new Date(),
-    tags: noteTags,
-    reminderDate: null,
-    reminderTime: null,
-});
-notes.push({
-    id: (notes.length+1),
-    title: 'testowa notka4',
-    message: 'lorem tararam',
-    color: 3,
-    pinned: false,
-    startDate: new Date(),
-    tags: noteTags,
-    reminderDate: null,
-    reminderTime: null,
-});
 
 const temporarycl = (element)=>console.log(element);
 
@@ -87,11 +43,9 @@ const labelCreator = (nodeName, labelFor, labelContent)=>{
 
 const formCreator = (nodeName)=>{
     const form = document.createElement('form');
-    // form.action='';
     nodeName.appendChild(form);
     return form;
 };
-
 
 const formTagCreator = (nodeName)=>{
     const form = formCreator(nodeName);
@@ -120,7 +74,6 @@ const setNoteColor = (nodeName, defaultColorNo)=>{
         nodeName.style.color = noteColorSets[index].fontColor;
     };
 
-
     noteColorSets.forEach((color, index)=>{
         const divColor = document.createElement('div');
         divColor.style.backgroundColor=color.backgroundColor;
@@ -130,6 +83,24 @@ const setNoteColor = (nodeName, defaultColorNo)=>{
         divColor.addEventListener('click',()=>setNewColor(index));
     });
     return noteColor;
+};
+
+const exitNote = ()=>{
+    noteList.textContent='';
+    noteList.classList.remove('active');
+};
+
+const saveToStorage = ()=>{
+    localStorage.setItem(lsKey,JSON.stringify(notes));
+};
+
+const sortUserNotes = ()=>{
+    const pinnedNotes = notes.filter((note)=>note.pinned);
+    const unPinnedNotes = notes.filter((note)=>!note.pinned);
+    const allNotes = pinnedNotes.concat(unPinnedNotes);
+    for (let index = 0; index<notes.length; index++){
+        notes[index]=allNotes[index];
+    }
 };
 
 const newNote = ()=>{
@@ -157,20 +128,7 @@ const newNote = ()=>{
     const notePinnedValue = inputCreator(notePinnedNote,'checkbox','pinnedNote');
     labelCreator(notePinnedNote,'pinnedNote','pinezka');
         
-    const exitNote = ()=>{
-        noteList.textContent='';
-        noteList.classList.remove('active');
-    };
     const saveNote = ()=>{
-        // console.log(`id: ${notes.length+1}`);
-        // console.log(`title: ${noteTitle.value}`);
-        // console.log(`message: ${noteContent.value}`);
-        // console.log(`color: ${noteColor}`);
-        // console.log(`pinned: ${notePinnedValue.checked}`);
-        // console.log(`startDate: ${new Date()}`);
-        // console.log(`tag: ${noteTags}`);
-        // console.log(`reminder Date: ${noteReminderData.value}`);
-        // console.log(`reminder Time: ${noteReminderTime.value}`);
         notes.push({
             id: (notes.length+1),
             title: noteTitle.value,
@@ -183,40 +141,66 @@ const newNote = ()=>{
             reminderTime: noteReminderTime.value,
         });
         exitNote();
+        saveToStorage();
         showAllUserNotes();
     };
     buttonCreator(noteMenuNote,'anuluj',exitNote, 'cancelNoteBtn');
     buttonCreator(noteMenuNote,'zapisz', saveNote, 'addNoteBtn');
 };
 
-const openNote = (element)=>{
+const openNote = (index)=>{
+    if (noteList.classList.value === 'note active') return;
+    const element = notes[index];
     noteList.classList.add('active');
     
     const noteTitleDiv = divCreator(noteList, 'title');
     noteTitleDiv.textContent = element.title;
+    noteTitleDiv.classList.add('title', 'input');
     
     const noteMessageDiv = divCreator(noteList, 'message');
     noteMessageDiv.textContent = element.message;
+    noteMessageDiv.classList.add('textarea');
     noteMessageDiv.style.backgroundColor = noteColorSets[element.color].backgroundColor;
     noteMessageDiv.style.color = noteColorSets[element.color].fontColor;
     
     const noteMenuNote = divCreator(noteList, 'menuNote');
     const menuFormTag = document.createElement('div');
     menuFormTag.classList.add('formTag');
-    menuFormTag.textContent = 'tagi';
+    menuFormTag.textContent = notes[index].tags? `Tagi: ${notes[index].tags}`: 'Tagi: brak';
+    menuFormTag.classList.add('formElements');
+    noteMenuNote.appendChild(menuFormTag);
     
     const noteReminder = document.createElement('div');
-    noteReminder.textContent = `${element.reminderDate}: ${element.reminderTime}`;
+    noteReminder.textContent = notes[index].reminderDate? `przypomnienie: ${element.reminderDate}: ${element.reminderTime}`:'brak przypomnienia';
+    noteReminder.classList.add('formElements');
+    noteMenuNote.appendChild(noteReminder);
     
     const notePinnedNote = document.createElement('div');
-    notePinnedNote.textContent = element.pinned? 'przypięte':'nieprzypięte';
-    
+    notePinnedNote.textContent = element.pinned? 'wiadomość przypięta':'wiadomość nieprzypięta';
+    notePinnedNote.classList.add('formElements');
+    noteMenuNote.appendChild(notePinnedNote);
 
+    buttonCreator(noteMenuNote,'usuń',()=>{
+        notes.splice(index,1);
+        exitNote();
+        saveToStorage();
+        showAllUserNotes();
+    });
+    buttonCreator(noteMenuNote,'powróć', exitNote);
+};
+
+const updateNotesFromLocalStorage = ()=>{
+    const lsValues = [...(JSON.parse(localStorage.getItem(lsKey)))];
+    lsValues.forEach((lsValue, index)=>{
+        notes[index] = lsValue;
+    });
 };
 
 const showAllUserNotes = ()=>{
     const userNotesDiv = document.querySelector('.userNotes');
     userNotesDiv.textContent='';
+    updateNotesFromLocalStorage();
+    sortUserNotes();
     notes.forEach((note,index)=>{
         const showNote = document.createElement('div');
         showNote.textContent = notes[index].title;
@@ -224,7 +208,7 @@ const showAllUserNotes = ()=>{
         showNote.style.color = noteColorSets[notes[index].color].fontColor;
         if (note.pinned) showNote.style.border = `.4vw solid ${noteColorSets[notes[index].color].fontColor}`;
         userNotesDiv.appendChild(showNote);
-        showNote.addEventListener('click', openNote); //wpisać instrukcję dla note .active
+        showNote.addEventListener('click',()=>openNote(index, note.pinned));
     });
 };
 
