@@ -6,7 +6,6 @@ const noteColorSets = [{backgroundColor: '#272121', fontColor: '#f9d276'},{backg
 let noteColor;
 let noteTags;
 
-const temporarycl = (element)=>console.log(element);
 
 const buttonCreator = (nodeName, buttonValue, listenerFunctionName, buttonId)=>{
     const btn = document.createElement('button');
@@ -190,6 +189,7 @@ const openNote = (index)=>{
 };
 
 const updateNotesFromLocalStorage = ()=>{
+    if (JSON.parse(localStorage.getItem(lsKey))==null) return;
     const lsValues = [...(JSON.parse(localStorage.getItem(lsKey)))];
     lsValues.forEach((lsValue, index)=>{
         notes[index] = lsValue;
