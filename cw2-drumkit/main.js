@@ -47,6 +47,7 @@ const setDrum = keyboardAction => {
             id = soundData.name;
         }
     });
+
     if (sound) {
         return  {
             id: id,

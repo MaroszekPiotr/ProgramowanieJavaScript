@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>noteKeep++</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="upMenu">
+        <p>noteKeep++</p>
+        <form action="">
+          <label for="">Znajdź notatkę:</label>
+          <input type="text" />
+          <button id="searchBtn">szukaj</button>
+        </form>
+      </div>
+      <div class="userNotes">
+        <!-- początek statycznego wzorca -->
+        <!-- <div>testowa notatka</div>
+        <div>testowa notatka</div>
+        <div>testowa notatka</div>
+        <div>testowa notatka</div> -->
+        <!-- koniec statycznego wzorca -->
+      </div>
+      <div class="reminder"></div>
+      <div class="note">
+        <!--  włączone: active -->
+        <!-- początek wyglądu - wersja statyczna -->
+        <!-- <div class="title">
+          <form action="">
+            <input type="text" value="Wprowadź tytuł..." />
+          </form>
+        </div>
+        <div class="message">
+          <textarea name="" id="messageBox"></textarea>
+          <div class="setNoteColor">
+            <div
+              style="background-color: #272121; border: #f9d276 solid 2px"
+            ></div>
+            <div style="background-color: #f9ed69"></div>
+            <div style="background-color: #f38181"></div>
+            <div style="background-color: #08d9d6"></div>
+            <div style="background-color: #384259"></div>
+            <div style="background-color: #0c056d"></div>
+            <div style="background-color: #e8f1f5"></div>
+          </div>
+        </div>
+        <div class="menuNote">
+          <form action="" class="formTag">
+            <input type="text" value="wpisz tag, możesz dodać ich wiele" />
+            <button>dodaj</button>
+          </form>
+          <form action="">
+            <input type="date" id="reminderDate" />
+            <input type="time" id="reminderTime" />
+            <label for="reminderDate">przypomnienie</label>
+          </form>
+          <form action="">
+            <input type="checkbox" id="pinnedNote" />
+            <label for="pinnedNote">pinezka</label>
+          </form>
+          <button id="cancelNoteBtn">anuluj</button>
+          <button id="addNoteBtn">dodaj</button>
+        </div> -->
+        <!-- koniec wyglądu -->
+      </div>
+      <div class="downMenu">
+        <button id="addBtn">dodaj</button>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
