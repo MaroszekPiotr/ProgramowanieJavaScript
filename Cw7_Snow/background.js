@@ -1,4 +1,4 @@
-class GameBoard {
+class BackGround {
     constructor(divSelector){
         this.maxSizeX;
         this.maxSizeY;
@@ -6,11 +6,9 @@ class GameBoard {
         this.divSelector=divSelector;
     }
 
-    Draw(backgroundColor='darkslategray'){
+    Draw(backgroundColor='darkblue'){
         this.divSelector.style.backgroundColor=backgroundColor;
         this.maxSizeX=window.innerWidth;
         this.maxSizeY=window.innerHeight;
     }
 }
-
-// export default {GameBoard};

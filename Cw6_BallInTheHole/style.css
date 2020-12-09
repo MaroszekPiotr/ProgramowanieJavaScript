@@ -4,7 +4,13 @@
     padding: 0;
 }
 .gameBoard {
+    position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: darkslategray;
+    /* background-color: darkslategray; */
+}
+
+.gameBall {
+    position: absolute;
+    left: 150px;
 }
