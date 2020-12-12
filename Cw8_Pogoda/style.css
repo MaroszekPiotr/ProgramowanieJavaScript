@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: burlywood;
+    font-family: 'Courier New', Courier, monospace;
+}
+.form {
+    background-color: aqua;
+    height: 5vh;
+    text-align: center;
+    line-height: 5vh;
+}
+.weather {
+    background-color: green;
+    width: 100vw;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+}
+.container {
+    display: flex;
+    justify-content: space-around;
+    background-color: darkgreen;
+    flex-wrap: wrap;
+}
+.cities {
+    margin: .5vh;
+    padding: 1VH;
+    background-color: grey;
+    border: 2px solid black;
+    flex-shrink: 1;
+    width: 10vw;
+    height: 10vw;
+}
