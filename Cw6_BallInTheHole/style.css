@@ -3,14 +3,24 @@
     margin: 0;
     padding: 0;
 }
-.gameBoard {
+/* .gameBoard {
     position: absolute;
     width: 100vw;
     height: 100vh;
-    /* background-color: darkslategray; */
 }
 
 .gameBall {
     position: absolute;
     left: 150px;
+} */
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    border: 2px solid black;
 }
