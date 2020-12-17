@@ -18,13 +18,18 @@ const ctx = canvas.getContext('2d');
 
 
 class SnowStorm {
-    constructor(canvasNode, color = 'darkblue', width = window.innerWidth, height = window.innerHeight) {
+    constructor(canvasNode, snowSpeed = 1, numberOfSnowlakes = 500, fps = 60, color = 'darkblue', width = window.innerWidth, height = window.innerHeight) {
         this.canvasNode = canvasNode;
         this.ctx = this.canvasNode.getContext('2d');
         this.width = width;
         this.height = height;
         this.color = color;
-        this.cornflake = new Snowflake(this.ctx, 50);
+        this.numberOfSnowlakes = numberOfSnowlakes;
+        this.fps = fps;
+        this.snowSpeed = snowSpeed;
+        this.snowflakes = [];
+        this.snowExample = new Snowflake(this.ctx, 50);
+        this.drawSnowflakes(numberOfSnowlakes);
         setInterval(() => this.startSnowing(), 100);
     }
     drawBackGround(ctx, color) {
@@ -33,22 +38,29 @@ class SnowStorm {
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, this.width, this.height);
     }
-    drawSnowflake() {
-        new Snowflake(this.ctx, 50);
+    drawSnowflakes(numberOfSnowflake) {
+        let howlong = 0; //ma wyliczyć jak długo będzie spadał płatek śniegu, w tym czasie powinny się rozsypać wszystkie płatki
+        const produceSnow = () => {
+            if (this.snowflakes.length == numberOfSnowflake) clearInterval(snowflake);
+            else {
+                const snowflake = new Snowflake(this.ctx, Math.floor(Math.random() * this.width));
+                this.snowflakes.push(snowflake);
+            }
+        };
+        const snowflake = setInterval(produceSnow, 20);
     }
     startSnowing(snowflakeNumber) {
         this.drawBackGround(this.ctx, this.color);
-        console.log('ok');
-        this.cornflake.drawSnowflake(this.ctx);
+        this.snowExample.drawSnowflake(this.ctx);
     }
 }
 class Snowflake {
-    constructor(canvasCtx, posiotionX = 0, radius = Math.floor(Math.random() * 20)) {
+    constructor(canvasCtx, posiotionX = 0, maxwidth = 1000, radius = Math.floor(Math.random() * 20)) {
         this.ctx = canvasCtx;
         this.radius = radius;
         this.positionX = posiotionX;
         this.positionY = 0;
-        //this.drawSnowflake(this.ctx);
+        this.maxwidth = maxwidth;
         this.animeSnowflake();
     }
     drawSnowflake(ctx) {
@@ -58,7 +70,11 @@ class Snowflake {
     }
     animeSnowflake() {
         setInterval(() => {
-            this.positionY++;
+            this.positionY += 10;
+            if (this.positionY > window.innerHeight) {
+                this.positionY = 0;
+                this.positionX = Math.floor(Math.random() * 100);
+            }
         }, 50);
     }
 }
