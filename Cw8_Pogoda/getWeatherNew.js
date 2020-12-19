@@ -10,7 +10,6 @@ class GetWeather {
         this.GetData(cityName, 'firstTime');
         setInterval(() => {
             this.GetData(cityName);
-            console.log(this);
         }, 120000);
     }
     GetData(cityName, drawData) {
@@ -36,12 +35,12 @@ class GetWeather {
                 this.humidity = value[1].humidity;
                 this.pressure = value[1].pressure;
                 this.image = image;
-                if (drawData === 'firstTime') this.DrawData();
+                if (drawData === 'firstTime') this.AddDataFields();
                 this.RefreshData();
             })
             .catch((e) => console.error('Catched exception: ', e));
     }
-    DrawData() {
+    AddDataFields() {
         for (let i = 0; i < 4; i++) {
             const elementName = document.createElement('div');
             this.allDataContainer.appendChild(elementName);
