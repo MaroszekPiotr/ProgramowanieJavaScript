@@ -29,11 +29,13 @@ body {
     flex-wrap: wrap;
 }
 .cities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: .5vh;
     padding: 1VH;
     background-color: grey;
     border: 2px solid black;
-    flex-shrink: 1;
     width: 10vw;
     height: 10vw;
 }

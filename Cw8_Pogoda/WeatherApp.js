@@ -9,6 +9,7 @@ class WeatherApp {
         inputBtn.addEventListener('click', (e) => {
             e.preventDefault();
             this.addCityWeather(this.inputField.value, this.output);
+            this.inputField.value = '';
         });
     }
     addCityWeather(cityName) {
