@@ -7,6 +7,7 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: 'Courier New', Courier, monospace;
+    background-color: var(--color2);
     /* zmienne: */
     --color1: #bb2205;
     --color2: #ebcfc4;
@@ -22,8 +23,16 @@ body {
     text-align: center;
     line-height: 5vh;
 }
-.weather {
+button {
+    padding: 2px 8px;
     background-color: var(--color2);
+    transition: .5s linear;
+}
+button:hover{
+    background-color: var(--color4);
+    transition: .5s linear;
+}
+.weather {
     width: 100vw;
     height: 95vh;
     display: flex;
