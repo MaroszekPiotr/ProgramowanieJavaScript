@@ -6,17 +6,24 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: burlywood;
     font-family: 'Courier New', Courier, monospace;
+    /* zmienne: */
+    --color1: #bb2205;
+    --color2: #ebcfc4;
+    --color3: #f05454;
+    --color4: #f5b461;
+
+
 }
 .form {
-    background-color: aqua;
+    background-color: var(--color1);
+    color: var(--color2);
     height: 5vh;
     text-align: center;
     line-height: 5vh;
 }
 .weather {
-    background-color: green;
+    background-color: var(--color2);
     width: 100vw;
     height: 95vh;
     display: flex;
@@ -24,18 +31,34 @@ body {
 }
 .container {
     display: flex;
-    justify-content: space-around;
-    background-color: darkgreen;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
 }
 .cities {
+    background-color: var(--color4);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     margin: .5vh;
     padding: 1VH;
-    background-color: grey;
     border: 2px solid black;
-    width: 10vw;
-    height: 10vw;
+    border-radius: 10px;
 }
+.cities div{
+    text-align: center;
+    width: 100%;
+}
+.cities div:nth-child(4){
+    border-bottom: 2px solid black;
+}
+.cities div:nth-child(1){
+    font-weight: 800;
+    color: var(--color3);
+}
+.cities img{
+    margin: 0 auto; 
+    width: 10vh;
+    height: 10vh;
+}
+

@@ -53,9 +53,9 @@ class GetWeather {
         const container = this.allDataContainer.querySelectorAll('div');
         const img = this.allDataContainer.querySelector('img');
         container[0].textContent = this.cityName;
-        container[1].textContent = `temp: ${this.temp}°C`;
-        container[2].textContent = `wilgotność: ${this.humidity}%`;
-        container[3].textContent = `ciśnienie: ${this.pressure}hPa`;
+        container[1].textContent = `temp:${this.temp}°C`;
+        container[2].textContent = `wilgotność:${this.humidity}%`;
+        container[3].textContent = `ciśnienie:${this.pressure}hPa`;
         img.src = this.image.src;
     }
 }
