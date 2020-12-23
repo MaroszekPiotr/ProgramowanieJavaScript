@@ -15,12 +15,21 @@
 } */
 
 body {
-    display: flex;
+    /* display: flex; */
     height: 100vh;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 
-canvas {
-    border: 2px solid black;
+.gameBar{
+    display: flex;
+    height: 5vh;
+    align-items: center;
+    /* width: 100vw; */
+}
+.gameBar:first-child{
+    margin-left: 5vw;
+}
+.gameBar button{
+    padding: .5vh 2vw;
 }
