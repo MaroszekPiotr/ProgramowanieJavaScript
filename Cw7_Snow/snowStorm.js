@@ -13,7 +13,7 @@ class SnowStorm {
         this.transparency = 0;
         this.snowflakes = [];
         this.createSnowflakes(numberOfSnowlakes);
-        setInterval(() => this.startSnowing(), Math.floor(1000 / fps));
+        setInterval(() => this.startSnowing(), Math.floor(1000 / this.fps));
     }
     drawBackGround(ctx) {
         ctx.drawImage(this.imgHot, 0, 0, this.imgHot.width, this.imgHot.height, 0, 0, this.width, this.height);

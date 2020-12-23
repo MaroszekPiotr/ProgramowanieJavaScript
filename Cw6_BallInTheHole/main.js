@@ -18,7 +18,7 @@ class BallInTheHole {
         this.fps = fps;
         this.drawBoard = this.DrawBoard();
         this.playerBall = new GameBall(this); //this.CreatePlayerBall();
-        setInterval(() => this.AnimeGame(), 30);
+        setInterval(() => this.AnimeGame(), Math.floor(1000 / this.fps));
     }
     DrawBoard() {
         this.ctx.beginPath();
