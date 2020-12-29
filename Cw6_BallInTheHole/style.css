@@ -3,29 +3,13 @@
     margin: 0;
     padding: 0;
 }
-/* .gameBoard {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-}
-
-.gameBall {
-    position: absolute;
-    left: 150px;
-} */
-
 body {
-    /* display: flex; */
     height: 100vh;
-    /* justify-content: center;
-    align-items: center; */
 }
-
 .gameBar{
     display: flex;
     height: 5vh;
     align-items: center;
-    /* width: 100vw; */
 }
 .gameBar:first-child{
     margin-left: 5vw;
