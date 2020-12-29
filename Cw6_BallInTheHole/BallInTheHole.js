@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 class BallInTheHole {
     constructor(input, fps = 60) {
         //ustawienia canvas:
@@ -11,12 +12,26 @@ class BallInTheHole {
         this.fps = fps;
         this.drawBoard;
         this.playerBall;
-        this.targetPoint;
-        this.trapPoint = [];
+        this.levels = [];
+        this.actualLevel = 0;
         this.gameStatus;
         this.timeStart;
         this.timeEnd;
-        this.StartGame();
+        this.DrawBoard();
+    }
+    SetLevels(numberOfLevels = 5) {
+        this.actualLevel = 0;
+        this.levels.length = 0;
+        for (let i = 0; i < numberOfLevels; i++) {
+            let newLevel;
+            i == 0 ? newLevel = new TargetPoint(this, 'Win') : newLevel = new TargetPoint(this, 'Lose');
+            this.levels.push(newLevel);
+        }
+
+    }
+    NextLevel() {
+        this.levels[this.actualLevel].ChangeRole('Lose');
+        this.levels[++this.actualLevel].ChangeRole('Win');
     }
     DrawBoard() {
         this.ctx.beginPath();
@@ -27,20 +42,15 @@ class BallInTheHole {
     AnimeGame() {
         this.DrawBoard();
         this.playerBall.MoveBall();
-        this.targetPoint.Draw();
-        this.targetPoint.CheckIfInside();
-        this.trapPoint.forEach((trap) => {
-            trap.Draw();
-            trap.CheckIfInside();
+        this.levels.forEach((level) => {
+            level.Draw();
+            level.CheckIfInside();
         });
     }
     NewGame() {
         this.drawBoard = this.DrawBoard();
         this.playerBall = new GameBall(this);
-        this.targetPoint = new TargetPoint(this, 'Win');
-        for (let i = 0; i < Math.floor(Math.random() * 5 + 1); i++) {
-            this.trapPoint.push(new TargetPoint(this, 'Lose'));
-        }
+        this.SetLevels();
     }
     StartGame() {
         this.NewGame();
@@ -56,16 +66,19 @@ class BallInTheHole {
     }
     GameSummary(EndGameText) {
         this.StopGame();
-        this.DrawBoard();
-        this.ctx.beginPath();
-        this.ctx.font = '75px Arial';
-        this.ctx.fillStyle = 'red';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText(`You ${EndGameText}!`, this.cw / 2, this.ch / 2);
-        this.ctx.font = '50px Arial';
-        this.ctx.fillStyle = 'orange';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText(`Game Time: ${((this.timeEnd - this.timeStart)/1000).toFixed(2)}s`, this.cw / 2, this.ch * 0.75);
-        this.ctx.closePath();
+        setTimeout(() => {
+            this.DrawBoard();
+            this.ctx.beginPath();
+            this.ctx.font = '75px Arial';
+            this.ctx.fillStyle = 'red';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(`You ${EndGameText}!`, this.cw / 2, this.ch / 2);
+            this.ctx.font = '50px Arial';
+            this.ctx.fillStyle = 'orange';
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(`Game Time: ${((this.timeEnd - this.timeStart)/1000).toFixed(2)}s`, this.cw / 2, this.ch * 0.75);
+            this.ctx.closePath();
+        }, 50);
+
     }
 }

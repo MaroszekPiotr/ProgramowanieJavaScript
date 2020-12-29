@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 class TargetPoint {
     constructor(gameClassObj, role) {
         this.gameClassObj = gameClassObj;
@@ -19,7 +20,28 @@ class TargetPoint {
         let distanceX = Math.abs(this.positionX - this.gameClassObj.playerBall.positionX);
         let distanceY = Math.abs(this.positionY - this.gameClassObj.playerBall.positionY);
         let distanceBetweenCircles = Math.pow((Math.pow(distanceX, 2) + Math.pow(distanceY, 2)), 1 / 2); //odległość od środków
-        if (distanceBetweenCircles < this.radius - this.gameClassObj.playerBall.radius) this.gameClassObj.GameSummary(this.role);
+        if (distanceBetweenCircles < this.radius - this.gameClassObj.playerBall.radius) this.NextLevelOrEndGame();
+    }
+    ChangeRole(newRole) {
+        this.role = newRole;
+        this.color = newRole.toLowerCase() == 'win' ? 'red' : 'gray';
+    }
+
+    NextLevelOrEndGame() {
+        switch (this.role.toLowerCase()) {
+            case 'win':
+                if (this.gameClassObj.actualLevel + 1 === this.gameClassObj.levels.length) {
+                    this.gameClassObj.GameSummary(this.role);
+                } else {
+                    this.gameClassObj.playerBall.positionX = 10;
+                    this.gameClassObj.playerBall.positionY = 10;
+                    this.gameClassObj.NextLevel();
+                }
+                break;
+            case 'lose':
+                this.gameClassObj.GameSummary(this.role);
+                break;
+        }
     }
 
 }
