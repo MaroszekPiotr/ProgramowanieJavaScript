@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drumkit</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="audio">
+        <div class="controlPanel">
+          <div class="title">DrumKit Studio v.0.0.3</div>
+          <div class="soundtrackControlPanel">
+            <button id="addSoundtrack">Add track</button>
+            <button id="playAll">Play All</button>
+            <button id="stopAll">Stop All</button>
+          </div>
+          <div class="soundtrack"></div>
+        </div>
+
+        <div class="userDisplayArea"></div>
+      </div>
+
+      <div class="drums">
+        <audio src="./sounds/boom.wav" id="boom"></audio>
+        <audio src="./sounds/clap.wav" id="clap"></audio>
+        <audio src="./sounds/hihat.wav" id="hihat"></audio>
+        <audio src="./sounds/kick.wav" id="kick"></audio>
+        <audio src="./sounds/openhat.wav" id="openhat"></audio>
+        <audio src="./sounds/ride.wav" id="ride"></audio>
+        <audio src="./sounds/snare.wav" id="snare"></audio>
+        <audio src="./sounds/tink.wav" id="tink"></audio>
+        <audio src="./sounds/tom.wav" id="tom"></audio>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
