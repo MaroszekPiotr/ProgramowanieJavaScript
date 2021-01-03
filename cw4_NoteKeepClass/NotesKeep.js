@@ -18,7 +18,6 @@ class NotesKeep {
         this.notes.push(newNote);
         this.SaveId();
         this.actualIdNumber++;
-        console.log(this.actualIdNumber);
     }
     OpenNote(index) {
         const openNote = Note.LoadNote(this, this.notes[index]);
@@ -65,9 +64,3 @@ class NotesKeep {
         });
     }
 }
-
-const userNotesNodeName = document.querySelector('.userNotes');
-const addBtn = document.querySelector('#addBtn');
-const searchForm = document.querySelector('searchForm');
-const noteNode = document.querySelector('.note');
-const notesKeep = new NotesKeep(userNotesNodeName, addBtn, noteNode, searchForm);

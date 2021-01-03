@@ -63,6 +63,7 @@ class Note {
         };
         this.ButtonCreator(noteMenuNote, 'anuluj', () => {
             notesKeepClass.notes.splice(notesKeepClass.notes.length - 1, 1);
+            notesKeepClass.actualIdNumber--;
             this.ExitNote(this.noteNode);
         }, 'cancelNoteBtn');
         this.ButtonCreator(noteMenuNote, 'zapisz', saveNote, 'addNoteBtn');
@@ -180,6 +181,7 @@ class Note {
         if (id) input.id = id;
         if (value) input.value = value;
         nodeName.appendChild(input);
+        input.addEventListener('click', () => input.value = '');
         return input;
     }
     LabelCreator(nodeName, labelFor, labelContent) {
