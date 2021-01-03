@@ -59,7 +59,7 @@ class Note {
             this.reminderTime = noteReminderTime.value;
             this.ExitNote(this.noteNode);
             notesKeepClass.SaveNote();
-            notesKeepClass.ShowNotes();
+            notesKeepClass.ShowNotes(notesKeepClass.notes);
         };
         this.ButtonCreator(noteMenuNote, 'anuluj', () => {
             notesKeepClass.notes.splice(notesKeepClass.notes.length - 1, 1);
@@ -104,7 +104,7 @@ class Note {
             notesKeepClass.notes.splice(index, 1);
             this.ExitNote(this.noteNode);
             notesKeepClass.SaveNote();
-            notesKeepClass.ShowNotes();
+            notesKeepClass.ShowNotes(notesKeepClass.notes);
         });
         this.ButtonCreator(noteMenuNote, 'powróć', () => this.ExitNote(this.noteNode));
     }

@@ -10,7 +10,8 @@ class NotesKeep {
         this.actualIdNumber = 1;
         this.LoadId();
         this.addBtnNode.addEventListener('click', () => this.NewNote());
-        this.ShowNotes();
+        this.searchFormNode[1].addEventListener('click', (element) => this.ShowFilteredNotes(element, searchFormNode[0].value));
+        this.ShowNotes(this.notes);
     }
     NewNote() {
         const newNote = new Note(this);
@@ -42,11 +43,11 @@ class NotesKeep {
             this.notes[index] = allNotes[index];
         });
     }
-    ShowNotes() {
+    ShowNotes(notes) {
         this.noteNodeName.textContent = '';
         this.UpdateNotesList();
         this.SortNotes();
-        this.notes.forEach((note, index) => {
+        notes.forEach((note, index) => {
             const showNote = document.createElement('div');
             showNote.textContent = note.title;
             showNote.style.backgroundColor = this.notes[index].backgroundColor;
@@ -55,6 +56,22 @@ class NotesKeep {
             this.noteNodeName.appendChild(showNote);
             showNote.addEventListener('click', () => this.OpenNote(index));
         });
+    }
+    ShowFilteredNotes(element, input) {
+        element.preventDefault();
+        if (input == '') {
+            this.ShowNotes(this.notes);
+            return;
+        }
+        const filteredNotes = this.notes.filter((note) => {
+            const tags = note.noteTags.filter((tag) => tag == input);
+            if (note.id == input) return true;
+            if (note.title == input) return true;
+            if (note.message == input) return true;
+            if (tags.length > 0) return true;
+        });
+        this.ShowNotes(filteredNotes);
+
     }
     UpdateNotesList() {
         if (JSON.parse(localStorage.getItem(this.lsKey)) == null) return;
