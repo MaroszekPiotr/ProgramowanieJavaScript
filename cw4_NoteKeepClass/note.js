@@ -1,7 +1,7 @@
 class Note {
     constructor(notesKeepClass) {
         this.noteNode = notesKeepClass.noteNode;
-        this.id;
+        this.id = notesKeepClass.actualIdNumber;
         this.title;
         this.message;
         this.backgroundColor;
@@ -13,7 +13,14 @@ class Note {
         this.reminderDate;
         this.reminderTime;
         this.noteColor;
-
+    }
+    static LoadNote(notesKeepClass, note) {
+        const newNote = new Note(notesKeepClass);
+        for (let property in note) {
+            if (property === 'noteNode') continue;
+            newNote[property] = note[property];
+        }
+        return newNote;
     }
     NewNote(notesKeepClass) {
         this.noteNode.classList.add('active');
@@ -41,7 +48,6 @@ class Note {
         this.LabelCreator(notePinnedNote, 'pinnedNote', 'pinezka');
 
         const saveNote = () => {
-            this.id = notesKeepClass.notes.length + 1;
             this.title = noteTitle.value;
             this.message = noteContent.value;
             this.backgroundColor;
@@ -51,21 +57,59 @@ class Note {
             this.startDate = new Date();
             this.reminderDate = noteReminderData.value;
             this.reminderTime = noteReminderTime.value;
-            notesKeepClass.notes.push(this);
             this.ExitNote(this.noteNode);
             notesKeepClass.SaveNote();
             notesKeepClass.ShowNotes();
         };
-        this.ButtonCreator(noteMenuNote, 'anuluj', () => this.ExitNote(this.noteNode), 'cancelNoteBtn');
+        this.ButtonCreator(noteMenuNote, 'anuluj', () => {
+            notesKeepClass.notes.splice(notesKeepClass.notes.length - 1, 1);
+            this.ExitNote(this.noteNode);
+        }, 'cancelNoteBtn');
         this.ButtonCreator(noteMenuNote, 'zapisz', saveNote, 'addNoteBtn');
     }
-    OpenNote(notesKeepClass) {
+    OpenNote(notesKeepClass, index) {
+        if (this.noteNode.classList.value === 'note active') return;
+        const element = this;
+        this.noteNode.classList.add('active');
 
+        const noteTitleDiv = this.DivCreator(this.noteNode, 'title');
+        noteTitleDiv.textContent = element.title;
+        noteTitleDiv.classList.add('title', 'input');
+
+        const noteMessageDiv = this.DivCreator(this.noteNode, 'message');
+        noteMessageDiv.textContent = element.message;
+        noteMessageDiv.classList.add('textarea');
+        noteMessageDiv.style.backgroundColor = this.backgroundColor;
+        noteMessageDiv.style.color = this.fontColor;
+
+        const noteMenuNote = this.DivCreator(this.noteNode, 'menuNote');
+        const menuFormTag = document.createElement('div');
+        menuFormTag.classList.add('formTag');
+        menuFormTag.textContent = this.noteTags ? `Tagi: ${this.noteTags}` : 'Tagi: brak';
+        menuFormTag.classList.add('formElements');
+        noteMenuNote.appendChild(menuFormTag);
+
+        const noteReminder = document.createElement('div');
+        noteReminder.textContent = this.reminderDate ? `przypomnienie: ${this.reminderDate}: ${this.reminderTime}` : 'brak przypomnienia';
+        noteReminder.classList.add('formElements');
+        noteMenuNote.appendChild(noteReminder);
+
+        const notePinnedNote = document.createElement('div');
+        notePinnedNote.textContent = this.isPinned ? 'wiadomość przypięta' : 'wiadomość nieprzypięta';
+        notePinnedNote.classList.add('formElements');
+        noteMenuNote.appendChild(notePinnedNote);
+
+        this.ButtonCreator(noteMenuNote, 'usuń', () => {
+            notesKeepClass.notes.splice(index, 1);
+            this.ExitNote(this.noteNode);
+            notesKeepClass.SaveNote();
+            notesKeepClass.ShowNotes();
+        });
+        this.ButtonCreator(noteMenuNote, 'powróć', () => this.ExitNote(this.noteNode));
     }
     ExitNote(noteNode) {
         noteNode.textContent = '';
         noteNode.classList.remove('active');
-
     }
     SetColor(colorSetNumber) {
         const noteColorSets = [{
@@ -151,7 +195,8 @@ class Note {
         let inputFlag = 0;
         const addTagToNote = (element) => {
             element.preventDefault();
-            this.noteTags = [(inputs.value).split(' ')];
+            this.noteTags.push([(inputs.value).split(' ')]);
+            inputs.value = '';
         };
         this.ButtonCreator(form, 'dodaj', addTagToNote);
         inputs.addEventListener('click', () => inputFlag++ ? '' : inputs.value = '');
